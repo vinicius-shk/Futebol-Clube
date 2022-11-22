@@ -16,9 +16,6 @@ const { app } = new App();
 const { expect } = chai;
 
 describe('Seu teste', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
 
   let chaiHttpResponse: Response;
 
@@ -32,7 +29,7 @@ describe('Seu teste', () => {
     (User.findOne as sinon.SinonStub).restore();
   })
 
-  it('...', async () => {
+  it('Should return http 200 on /login post with correct body', async () => {
     chaiHttpResponse = await chai
        .request(app).post('/login').send(adminReturn);
 
