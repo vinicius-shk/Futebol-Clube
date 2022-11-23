@@ -4,8 +4,11 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import App from '../app';
+import Team from '../database/models/TeamModel'
+import IFindAllTeams from '../Interfaces/Team/teamFindAll';
 
 import { Response } from 'superagent';
+import { teamsGetMock } from './mocks/teamMocks';
 
 chai.use(chaiHttp);
 
@@ -13,25 +16,25 @@ const { app } = new App();
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
+describe('Team test suit', () => {
 
   let chaiHttpResponse: Response;
 
-  // beforeEach(async () => {
-  //   sinon
-  //     .stub(User, "findOne")
-  //     .resolves(adminReturn as User);
-  // });
+  beforeEach(async () => {
+    sinon
+      .stub(Team, "findAll")
+      .resolves(teamsGetMock as Team[]);
+  });
 
-  // afterEach(()=>{
-  //   (User.findOne as sinon.SinonStub).restore();
-  // })
+  afterEach(()=>{
+    (Team.findAll as sinon.SinonStub).restore();
+  })
 
-  // it('Should return http 200 on /login post with correct body', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app).post('/login').send(adminReturn);
+  it('Should return http 200 on /teams get', async () => {
+    chaiHttpResponse = await chai
+       .request(app).post('/teams');
 
-  //   expect(chaiHttpResponse.status).to.be.eq(200);
-  //   expect(chaiHttpResponse.body).to.deep.equal(adminReturn);
-  // });
+    expect(chaiHttpResponse.status).to.be.eq(200);
+    expect(chaiHttpResponse.body).to.deep.equal(teamsGetMock);
+  });
 });
