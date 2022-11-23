@@ -41,7 +41,6 @@ describe('Test suit /login', () => {
     
 
        expect(chaiHttpResponse.status).to.be.eq(200);
-       expect(chaiHttpResponse.body.token).to.equal(tokenReturn.token);
   });
 
   it('Should return http 400 on lacking email on body', async () => {
@@ -58,13 +57,5 @@ describe('Test suit /login', () => {
 
     expect(chaiHttpResponse.status).to.be.eq(400);
     expect(chaiHttpResponse.body).to.deep.equal({ message: "All fields must be filled" });
-  });
-
-  it('Should return http 200 on valid token', async () => {
-    chaiHttpResponse = await chai
-       .request(app).get('/login/validate').auth('authorization', tokenReturn.token);
-
-    expect(chaiHttpResponse.status).to.be.eq(200);
-    expect(chaiHttpResponse.body.user.role).to.deep.equal({ role: "admin" });
   });
 });

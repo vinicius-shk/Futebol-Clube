@@ -15,9 +15,6 @@ const loginService = async (body: ILoginBody)
   }
   const { email, id, username, role } = response;
   const token = jwt.sign({ email, id, username, role }, process.env.JWT_SECRET as string);
-  console.log(token);
-  await Promise.all([token]);
-  console.log(token);
   return { type: null, message: token };
 };
 
