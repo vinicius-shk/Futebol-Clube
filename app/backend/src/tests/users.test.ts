@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 
 import App from '../app';
 import User from '../database/models/UserModel';
-import { adminReturn, noEmailBody, noPassBody } from './mocks/userToken';
+import { adminReturn, noEmailBody, noPassBody, tokenReturn } from './mocks/userToken';
 
 import { Response } from 'superagent';
 
@@ -42,7 +42,7 @@ describe('Seu teste', () => {
        .request(app).post('/login').send(noEmailBody);
 
     expect(chaiHttpResponse.status).to.be.eq(400);
-    expect(chaiHttpResponse.body).to.deep.equal({ "message": "All fields must be filled" });
+    expect(chaiHttpResponse.body).to.deep.equal({ message: "All fields must be filled" });
   });
 
   it('Should return http 400 on lacking password on body', async () => {
@@ -50,6 +50,14 @@ describe('Seu teste', () => {
        .request(app).post('/login').send(noPassBody);
 
     expect(chaiHttpResponse.status).to.be.eq(400);
-    expect(chaiHttpResponse.body).to.deep.equal({ "message": "All fields must be filled" });
+    expect(chaiHttpResponse.body).to.deep.equal({ message: "All fields must be filled" });
+  });
+
+  it('Should return http 200 on valid token', async () => {
+    chaiHttpResponse = await chai
+       .request(app).get('/login/validate').auth('authorization', tokenReturn.token);
+
+    expect(chaiHttpResponse.status).to.be.eq(200);
+    expect(chaiHttpResponse.body).to.deep.equal({ role: "admin" });
   });
 });

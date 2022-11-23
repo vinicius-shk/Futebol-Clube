@@ -1,6 +1,4 @@
-import { INTEGER } from 'sequelize';
-import { STRING } from 'sequelize';
-import { Model } from 'sequelize';
+import { INTEGER, STRING, Model } from 'sequelize';
 import db from '.';
 // import OtherModel from './OtherModel';
 
@@ -17,24 +15,24 @@ User.init({
     type: INTEGER,
     allowNull: false,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
   username: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   role: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
   },
   email: {
     type: STRING,
-    allowNull:false
+    allowNull: false,
   },
   password: {
     type: STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 }, {
   // ... Outras configs
   underscored: true,
@@ -44,7 +42,7 @@ User.init({
 });
 
 /**
-  * `Workaround` para aplicar as associations em TS: 
+  * `Workaround` para aplicar as associations em TS:
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
