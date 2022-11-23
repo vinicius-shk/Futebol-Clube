@@ -1,9 +1,16 @@
 export const tokenReturn = {
-  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlkIjoxLCJ1c2VybmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjY5MjIxOTI2fQ.J4s8t-Z9-KNBHI619YyDOi_j2c99HGmt32m9MS3SV2A"
+  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlkIjoxLCJ1c2VybmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjY5MjI3OTM4fQ.FvWonmxImNMa18ZDmWCWlmRe3XZrynX6PXgokIWWzUY"
 };
 
 export const adminReturn = {
     id: 1,
+    username: 'Admin',
+    role: 'admin',
+    email: 'admin@admin.com',
+    password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
+  };
+
+  export const adminData = {
     username: 'Admin',
     role: 'admin',
     email: 'admin@admin.com',
