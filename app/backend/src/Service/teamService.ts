@@ -6,4 +6,10 @@ const getAllService = async ()
   return { type: null, message };
 };
 
-export default getAllService;
+const getByIdService = async (id: number)
+: Promise<{ type: number | null, message: { id: number, teamName: string } | null }> => {
+  const message = await Team.findByPk(id);
+  return { type: null, message };
+};
+
+export { getAllService, getByIdService };
