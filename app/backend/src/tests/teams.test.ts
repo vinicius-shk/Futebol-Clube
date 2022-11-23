@@ -31,7 +31,7 @@ describe('Team test suit', () => {
 
   it('Should return http 200 on /teams get', async () => {
     chaiHttpResponse = await chai
-       .request(app).post('/teams');
+       .request(app).get('/teams');
 
     expect(chaiHttpResponse.status).to.be.eq(200);
     expect(chaiHttpResponse.body).to.deep.equal(teamsGetMock);
