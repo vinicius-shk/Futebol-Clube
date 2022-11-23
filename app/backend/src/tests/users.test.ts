@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 
 import App from '../app';
 import User from '../database/models/UserModel';
-import { adminReturn } from './mocks/userToken';
+import { adminReturn, noEmailBody, noPassBody } from './mocks/userToken';
 
 import { Response } from 'superagent';
 
@@ -19,13 +19,13 @@ describe('Seu teste', () => {
 
   let chaiHttpResponse: Response;
 
-  before(async () => {
+  beforeEach(async () => {
     sinon
       .stub(User, "findOne")
       .resolves(adminReturn as User);
   });
 
-  after(()=>{
+  afterEach(()=>{
     (User.findOne as sinon.SinonStub).restore();
   })
 
@@ -37,7 +37,19 @@ describe('Seu teste', () => {
     expect(chaiHttpResponse.body).to.deep.equal(adminReturn);
   });
 
-  // it('Seu sub-teste', () => {
-  //   expect(false).to.be.eq(true);
-  // });
+  it('Should return http 400 on lacking email on body', async () => {
+    chaiHttpResponse = await chai
+       .request(app).post('/login').send(noEmailBody);
+
+    expect(chaiHttpResponse.status).to.be.eq(400);
+    expect(chaiHttpResponse.body).to.deep.equal({ "message": "All fields must be filled" });
+  });
+
+  it('Should return http 400 on lacking password on body', async () => {
+    chaiHttpResponse = await chai
+       .request(app).post('/login').send(noPassBody);
+
+    expect(chaiHttpResponse.status).to.be.eq(400);
+    expect(chaiHttpResponse.body).to.deep.equal({ "message": "All fields must be filled" });
+  });
 });

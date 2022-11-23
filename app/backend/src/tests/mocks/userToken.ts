@@ -9,3 +9,33 @@ export const adminReturn = {
     email: 'admin@admin.com',
     password: 'secret_admin',
   };
+
+export const wrongEmailBody = {
+  id: 1,
+  username: 'Admin',
+  role: 'admin',
+  email: 'batatinha@admin.com',
+  password: 'secret_admin',
+};
+
+export const wrongPassBody = {
+  id: 1,
+  username: 'Admin',
+  role: 'admin',
+  email: 'admin@admin.com',
+  password: 'secret_xablau',
+};
+
+export const noEmailBody = {
+  id: 1,
+  username: 'Admin',
+  role: 'admin',
+  password: 'secret_admin',
+};
+
+export const noPassBody = {
+  id: 1,
+  username: 'Admin',
+  role: 'admin',
+  email: 'admin@admin.com',
+};
