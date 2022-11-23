@@ -1,3 +1,3 @@
 import userRouter from './userRoute';
 
-export { userRouter };
+export default userRouter;
