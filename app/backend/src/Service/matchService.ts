@@ -35,4 +35,12 @@ const createMatchService = async (body: ICreateMatchBody)
   return { type: null, message: { id, ...body, inProgress: true } };
 };
 
-export { getAllService, getFilteredService, createMatchService };
+const endMatchByIdService = async (id: number)
+: Promise<{ type: number | null, message: string }> => {
+  await Match.update({ inProgress: false }, {
+    where: { id },
+  });
+  return { type: null, message: 'Finished' };
+};
+
+export { getAllService, getFilteredService, createMatchService, endMatchByIdService };
