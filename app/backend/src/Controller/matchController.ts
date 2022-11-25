@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 
-import getAllService from '../Service/matchService';
+import { getAllService, getFilteredService } from '../Service/matchService';
 
-const getAll = async (_req: Request, res: Response) => {
-  const { type, message } = await getAllService();
+const getAll = async (req: Request, res: Response) => {
+  const { inProgress } = req.query;
+  const { type, message } = !inProgress
+    ? await getAllService() : await getFilteredService(JSON.parse(inProgress as string));
   if (type) return res.status(type).json({ message });
   res.status(200).json(message);
 };

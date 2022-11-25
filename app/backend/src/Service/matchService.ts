@@ -14,4 +14,18 @@ const getAllService = async ()
   return { type: null, message };
 };
 
-export default getAllService;
+const getFilteredService = async (query: boolean)
+: Promise<{ type: number | null, message: Match[] }> => {
+  const message = await Match.findAll({
+    where: { inProgress: query },
+    include: [{
+      model: Team, as: 'teamHome',
+    },
+    {
+      model: Team, as: 'teamAway',
+    }],
+  });
+  return { type: null, message };
+};
+
+export { getAllService, getFilteredService };
