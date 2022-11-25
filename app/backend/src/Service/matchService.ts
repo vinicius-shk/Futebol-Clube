@@ -1,3 +1,4 @@
+import ICreateMatchBody from '../Interfaces/Match/createMatch';
 import Team from '../database/models/TeamModel';
 import Match from '../database/models/MatchModel';
 
@@ -28,4 +29,10 @@ const getFilteredService = async (query: boolean)
   return { type: null, message };
 };
 
-export { getAllService, getFilteredService };
+const createMatchService = async (body: ICreateMatchBody)
+: Promise<{ type: number | null, message: ICreateMatchBody }> => {
+  const { id } = await Match.create({ ...body, inProgress: true });
+  return { type: null, message: { id, ...body, inProgress: true } };
+};
+
+export { getAllService, getFilteredService, createMatchService };
