@@ -43,7 +43,7 @@ describe('Team test suit', () => {
   });
 
   it('Should return http 200 on /teams/:id get whit correct team', async () => {
-    const expected = list.find((team: { id: number, teamName: string }) => team.id === 5)
+    const expected = list.find((team: { id: number, teamName: string }) => team.id === 5);
     chaiHttpResponse = await chai
        .request(app).get('/teams/5');
 
