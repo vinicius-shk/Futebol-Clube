@@ -5,11 +5,15 @@ import * as jwt from 'jsonwebtoken';
 dotenv.config();
 
 const tokenValidation = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.header('authorization');
-  if (!token) return res.status(401).json({ message: 'token not found' });
-  const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-  req.body.user = decoded;
-  next();
+  try {
+    const token = req.header('authorization');
+    if (!token) return res.status(401).json({ message: 'Token must be a valid token' });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+    req.body.user = decoded;
+    next();
+  } catch (e) {
+    res.status(401).json({ message: 'Token must be a valid token' });
+  }
 };
 
 export default tokenValidation;
