@@ -7,8 +7,9 @@ const getAllService = async ()
 };
 
 const getByIdService = async (id: number)
-: Promise<{ type: number | null, message: { id: number, teamName: string } | null }> => {
+: Promise<{ type: number | null, message: { id: number, teamName: string } | null | string }> => {
   const message = await Team.findByPk(id);
+  if (!message) return { type: 404, message: 'There is no team with such id!' };
   return { type: null, message };
 };
 

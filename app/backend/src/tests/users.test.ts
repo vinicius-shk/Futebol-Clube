@@ -36,9 +36,7 @@ describe('Test suit /login', () => {
 
   it('Should return http 200 on /login post with correct body', async () => {
     chaiHttpResponse = await chai
-       .request(app).post('/login').send(adminData);
-    console.log(chaiHttpResponse.body);
-    
+       .request(app).post('/login').send(adminData);    
 
        expect(chaiHttpResponse.status).to.be.eq(200);
   });
