@@ -1,3 +1,4 @@
+import IMatchResultBody from '../Interfaces/Match/updateMatchResult';
 import ICreateMatchBody from '../Interfaces/Match/createMatch';
 import Team from '../database/models/TeamModel';
 import Match from '../database/models/MatchModel';
@@ -43,4 +44,20 @@ const endMatchByIdService = async (id: number)
   return { type: null, message: 'Finished' };
 };
 
-export { getAllService, getFilteredService, createMatchService, endMatchByIdService };
+const updateMatchService = async (id: number, body: IMatchResultBody)
+: Promise<{ type: number | null, message: string } > => {
+  const { homeTeamGoals, awayTeamGoals } = body;
+  const [response] = await Match.update({ homeTeamGoals, awayTeamGoals }, {
+    where: { id },
+  });
+  if (!response) return { type: 404, message: 'There is no team with such id!' };
+  return { type: null, message: 'Match updated!' };
+};
+
+export {
+  getAllService,
+  getFilteredService,
+  createMatchService,
+  endMatchByIdService,
+  updateMatchService,
+};

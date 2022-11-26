@@ -6,7 +6,8 @@ import {
   getAllService,
   getFilteredService,
   createMatchService,
-  endMatchByIdService } from '../Service/matchService';
+  endMatchByIdService,
+  updateMatchService } from '../Service/matchService';
 
 const getAll = async (req: Request, res: Response) => {
   const { inProgress } = req.query;
@@ -27,8 +28,12 @@ const createMatch = async (req: Request, res: Response) => {
   }
   const team1 = await getByIdService(homeTeam);
   const team2 = await getByIdService(awayTeam);
-  if (team1.type || team2.type) return res.status(team1.type as number).json({ message: team1.message });
-  const { type, message } = await createMatchService({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals });
+  if (team1.type || team2.type) {
+    return res.status(team1.type as number).json({ message: team1.message });
+  }
+  const { type, message } = await createMatchService(
+    { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals },
+  );
   if (type) return res.status(type).json({ message });
   res.status(201).json(message);
 };
@@ -40,4 +45,11 @@ const endMatchById = async (req: Request, res: Response) => {
   res.status(200).json({ message });
 };
 
-export { getAll, createMatch, endMatchById };
+const updateMatchById = async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const { type, message } = await updateMatchService(id, req.body);
+  if (type) return res.status(type).json({ message });
+  res.status(200).json({ message });
+};
+
+export { getAll, createMatch, endMatchById, updateMatchById };
