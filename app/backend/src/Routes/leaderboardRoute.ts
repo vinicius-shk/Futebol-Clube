@@ -1,16 +1,14 @@
 import { Router } from 'express';
 
-import {
-  getAwayLeaderboard,
-  getHomeLeaderboard,
-  getLeaderboard } from '../Controller/leaderboardController';
+import LeaderboardController from '../Controller/leaderboardController';
 
 const router = Router();
+const leaderboardController = new LeaderboardController();
 
-router.get('/', getLeaderboard);
+router.get('/', leaderboardController.getLeaderboard.bind(leaderboardController));
 
-router.get('/home', getHomeLeaderboard);
+router.get('/home', leaderboardController.getHomeLeaderboard.bind(leaderboardController));
 
-router.get('/away', getAwayLeaderboard);
+router.get('/away', leaderboardController.getAwayLeaderboard.bind(leaderboardController));
 
 export default router;
