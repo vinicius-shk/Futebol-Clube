@@ -14,6 +14,19 @@ export const defaultResult = {
   efficiency: '',
 };
 
+export const gameListFilter = (
+  matches: Match[],
+  id: number,
+  visitor: string | null,
+): Match[] => {
+  const teamGameList = matches.filter(({ homeTeam, awayTeam, inProgress }) => {
+    if (visitor === 'away') return inProgress ? false : awayTeam === id;
+    if (visitor === 'home') return inProgress ? false : homeTeam === id;
+    return inProgress ? false : homeTeam === id || awayTeam === id;
+  });
+  return teamGameList;
+};
+
 export const teamCalc = (teamGamesList: Match[], id: number, teamName: string): ILeaderboard => (
   teamGamesList.reduce((acc: ILeaderboard, cur: Match): ILeaderboard => {
     acc.totalGames += 1;
