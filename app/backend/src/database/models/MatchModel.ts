@@ -45,11 +45,6 @@ Match.init({
   timestamps: false,
 });
 
-/**
-  * `Workaround` para aplicar as associations em TS:
-  * Associations 1:N devem ficar em uma das instâncias de modelo
-  * */
-
 Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'teamHome' });
 Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'teamAway' });
 
