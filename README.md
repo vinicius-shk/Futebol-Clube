@@ -35,4 +35,5 @@ docker exec app_backend -it bash && npm run db:reset
 ```
 
 Página da aplicação disponível na porta **3000** em [https://localhost:3000](https://localhost:3000/)
+
 Faça as requisições de acordo com a documentação na porta **3001**
